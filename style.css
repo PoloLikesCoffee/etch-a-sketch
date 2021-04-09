@@ -1,0 +1,85 @@
+:root { 
+/*define the two custom properties to 16 by default 
+across the html document*/
+    --temp-column: 1;
+    --temp-row: 1;
+}
+
+body {
+    background-color:rgb(233, 202, 161);
+}
+
+#mainContainer {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+#gridContainer {
+    display: grid;
+    background-color: rgb(122, 89, 45);
+    padding: 0;
+    margin: 0;
+    border: 1px solid;
+    height: 40vw;
+    width: 40vw;
+    /*the two custom properties link to the function makeAGrid*/
+    grid-template-columns: repeat(var(--temp-column), auto);
+    grid-template-rows: repeat(var(--temp-row), auto);
+}
+
+.gridItem {
+    padding: 0;
+    margin: 0;
+}
+
+.resetButton {
+    width: 200px;
+    height: 50px;
+    margin: 5px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 40vw;
+    height: 25px;
+    background: #353535;
+    outline: none;
+    opacity: 0.7;
+    /*-webkit-transition: .2s;
+    transition: opacity .2s;*/
+}
+
+.slider:hover {
+    opacity: 1;
+}
+  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #e76418;
+    cursor: pointer;
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #e76418;
+    cursor: pointer;
+}
+
+@media (min-width: 1400px) {
+    #gridContainer {
+        height: 35vw;
+        width: 35vw; 
+    }
+}
+
+@media (max-width: 850px) {
+    #gridContainer {
+        height: 70vw;
+        width: 70vw; 
+    }
+}
