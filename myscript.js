@@ -20,7 +20,19 @@ function makeAGrid (colAndRow) {
     }
 }
 
+function clearGrid () {
+    let cell = gridContainer.children;
+    for (let i = 0; i < cell.length; i++) {
+        cell[i].style.backgroundColor = 'rgb(122, 89, 45)';
+    }
+}
 
+function removeGrid () {
+    //loop to remove all children "gridItem" from an gridContainer:
+    while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+    }
+}
 //function that gets the target of the event 
 //and change his color
 function changeColor (event) {
@@ -34,42 +46,21 @@ function changeColor (event) {
 }
 
 const mainContainer = document.getElementById('mainContainer');
-let resetButton = document.createElement('button');
-resetButton.textContent = 'RESET';
-resetButton.className = 'resetButton';
-resetButton.addEventListener("click", resetGrid);
+let clearButton = document.createElement('button');
+clearButton.textContent = 'CLEAR';
+clearButton.className = 'clearButton';
+clearButton.addEventListener("click", clearGrid);
 //append the reset button as the frist child of the parent mainContainer
-mainContainer.insertBefore(resetButton, mainContainer.firstChild);
-
-function resetGrid () {
-    //let newGridSize = sliderRange.value;
-    let newGridSize = prompt('How many squares per side do want you the new grid will be?');
-    //if click on cancel, don't call function resetGrid 
-    //and keep the current grid and trail
-    if (newGridSize !== null) {
-        if (newGridSize <= 1 || newGridSize > 100 || isNaN(newGridSize)) {
-            alert('The value has to be between 2 and 100.');
-            resetGrid();
-        } else {
-            //loop to remove all children "gridItem" from an gridContainer:
-            while (gridContainer.firstChild) {
-            gridContainer.removeChild(gridContainer.firstChild)
-            }
-            makeAGrid(newGridSize);
-            //sliderRange.value = newGridSize;
-            //outputSlider.textContent = sliderRange.value + ' x ' + sliderRange.value;
-        }
-    }
-}
+mainContainer.insertBefore(clearButton, mainContainer.firstChild);
 
 function loadDefaultGrid () {
     //load window with a grid of 16 x 16
     makeAGrid(16);
-    /*sliderRange.value = 16;
-    outputSlider.textContent = sliderRange.value + ' x ' + sliderRange.value;*/
+    sliderRange.value = 16;
+    outputSlider.textContent = sliderRange.value + ' x ' + sliderRange.value;
 }
 
-/*const outputSlider = document.createElement('p');
+const outputSlider = document.createElement('p');
 mainContainer.appendChild(outputSlider);
 
 const sliderRange = document.createElement('input');
@@ -82,4 +73,15 @@ mainContainer.appendChild(sliderRange);
 sliderRange.oninput = function() {
     outputSlider.textContent = this.value + ' x ' + this.value;
 }
-*/
+
+let newGridButton = document.createElement('button');
+newGridButton.textContent = 'NEW GRID';
+mainContainer.appendChild(newGridButton);
+
+newGridButton.addEventListener("click", makeNewGrid);
+
+function makeNewGrid () {
+    removeGrid();
+    makeAGrid(sliderRange.value);
+}
+
